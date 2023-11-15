@@ -1,0 +1,611 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ABSTRACT
+    AND
+    ARROW
+    ASSERT
+    BOOLEAN
+    BREAK
+    BYTE
+    CASE
+    CATCH
+    CHAR
+    CLASS
+    COMMA
+    CONST
+    CONTINUE
+    DECREMENT
+    DEFAULT
+    DOT
+    DOUBLE
+    ELSE
+    ENUM
+    EQ
+    EXTENDS
+    FALSE
+    FINAL
+    FINALLY
+    FLOAT
+    FOR
+    GE
+    GT
+    IF
+    IMPLEMENTS
+    IMPORT
+    INCREMENT
+    INSTANCEOF
+    INT
+    INTERFACE
+    LE
+    LONG
+    LT
+    MOD
+    NATIVE
+    NE
+    NEW
+    NOT
+    NULL
+    OR
+    PACKAGE
+    PRIVATE
+    PROTECTED
+    PUBLIC
+    RETURN
+    SHORT
+    STATIC
+    STRICTFP
+    STRING
+    SUPER
+    SWITCH
+    SYNCHRONIZED
+    THIS
+    THROW
+    THROWS
+    TRANSIENT
+    TRUE
+    TRY
+    VOID
+    VOLATILE
+
+Grammar
+
+Rule 0     S' -> looping_construct
+Rule 1     looping_construct -> do_while_loop
+Rule 2     looping_construct -> empty
+Rule 3     do_while_loop -> DO LBRACE statements RBRACE WHILE LPAREN expression RPAREN SEMICOLON
+Rule 4     statements -> statement
+Rule 5     statements -> statements statement
+Rule 6     statement -> ID ASSIGN expression SEMICOLON
+Rule 7     statement -> empty
+Rule 8     expression -> term
+Rule 9     expression -> expression PLUS term
+Rule 10    expression -> expression MINUS term
+Rule 11    term -> factor
+Rule 12    term -> term TIMES factor
+Rule 13    term -> term DIVIDE factor
+Rule 14    factor -> ID
+Rule 15    factor -> NUMBER
+Rule 16    factor -> LPAREN expression RPAREN
+Rule 17    empty -> <empty>
+
+Terminals, with rules where they appear
+
+ABSTRACT             : 
+AND                  : 
+ARROW                : 
+ASSERT               : 
+ASSIGN               : 6
+BOOLEAN              : 
+BREAK                : 
+BYTE                 : 
+CASE                 : 
+CATCH                : 
+CHAR                 : 
+CLASS                : 
+COMMA                : 
+CONST                : 
+CONTINUE             : 
+DECREMENT            : 
+DEFAULT              : 
+DIVIDE               : 13
+DO                   : 3
+DOT                  : 
+DOUBLE               : 
+ELSE                 : 
+ENUM                 : 
+EQ                   : 
+EXTENDS              : 
+FALSE                : 
+FINAL                : 
+FINALLY              : 
+FLOAT                : 
+FOR                  : 
+GE                   : 
+GT                   : 
+ID                   : 6 14
+IF                   : 
+IMPLEMENTS           : 
+IMPORT               : 
+INCREMENT            : 
+INSTANCEOF           : 
+INT                  : 
+INTERFACE            : 
+LBRACE               : 3
+LE                   : 
+LONG                 : 
+LPAREN               : 3 16
+LT                   : 
+MINUS                : 10
+MOD                  : 
+NATIVE               : 
+NE                   : 
+NEW                  : 
+NOT                  : 
+NULL                 : 
+NUMBER               : 15
+OR                   : 
+PACKAGE              : 
+PLUS                 : 9
+PRIVATE              : 
+PROTECTED            : 
+PUBLIC               : 
+RBRACE               : 3
+RETURN               : 
+RPAREN               : 3 16
+SEMICOLON            : 3 6
+SHORT                : 
+STATIC               : 
+STRICTFP             : 
+STRING               : 
+SUPER                : 
+SWITCH               : 
+SYNCHRONIZED         : 
+THIS                 : 
+THROW                : 
+THROWS               : 
+TIMES                : 12
+TRANSIENT            : 
+TRUE                 : 
+TRY                  : 
+VOID                 : 
+VOLATILE             : 
+WHILE                : 3
+error                : 
+
+Nonterminals, with rules where they appear
+
+do_while_loop        : 1
+empty                : 2 7
+expression           : 3 6 9 10 16
+factor               : 11 12 13
+looping_construct    : 0
+statement            : 4 5
+statements           : 3 5
+term                 : 8 9 10 12 13
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . looping_construct
+    (1) looping_construct -> . do_while_loop
+    (2) looping_construct -> . empty
+    (3) do_while_loop -> . DO LBRACE statements RBRACE WHILE LPAREN expression RPAREN SEMICOLON
+    (17) empty -> .
+
+    DO              shift and go to state 4
+    $end            reduce using rule 17 (empty -> .)
+
+    looping_construct              shift and go to state 1
+    do_while_loop                  shift and go to state 2
+    empty                          shift and go to state 3
+
+state 1
+
+    (0) S' -> looping_construct .
+
+
+
+state 2
+
+    (1) looping_construct -> do_while_loop .
+
+    $end            reduce using rule 1 (looping_construct -> do_while_loop .)
+
+
+state 3
+
+    (2) looping_construct -> empty .
+
+    $end            reduce using rule 2 (looping_construct -> empty .)
+
+
+state 4
+
+    (3) do_while_loop -> DO . LBRACE statements RBRACE WHILE LPAREN expression RPAREN SEMICOLON
+
+    LBRACE          shift and go to state 5
+
+
+state 5
+
+    (3) do_while_loop -> DO LBRACE . statements RBRACE WHILE LPAREN expression RPAREN SEMICOLON
+    (4) statements -> . statement
+    (5) statements -> . statements statement
+    (6) statement -> . ID ASSIGN expression SEMICOLON
+    (7) statement -> . empty
+    (17) empty -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    ID              shift and go to state 8
+    RBRACE          reduce using rule 17 (empty -> .)
+
+  ! ID              [ reduce using rule 17 (empty -> .) ]
+
+    statements                     shift and go to state 6
+    statement                      shift and go to state 7
+    empty                          shift and go to state 9
+
+state 6
+
+    (3) do_while_loop -> DO LBRACE statements . RBRACE WHILE LPAREN expression RPAREN SEMICOLON
+    (5) statements -> statements . statement
+    (6) statement -> . ID ASSIGN expression SEMICOLON
+    (7) statement -> . empty
+    (17) empty -> .
+
+  ! shift/reduce conflict for RBRACE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+    RBRACE          shift and go to state 10
+    ID              shift and go to state 8
+
+  ! RBRACE          [ reduce using rule 17 (empty -> .) ]
+  ! ID              [ reduce using rule 17 (empty -> .) ]
+
+    statement                      shift and go to state 11
+    empty                          shift and go to state 9
+
+state 7
+
+    (4) statements -> statement .
+
+    RBRACE          reduce using rule 4 (statements -> statement .)
+    ID              reduce using rule 4 (statements -> statement .)
+
+
+state 8
+
+    (6) statement -> ID . ASSIGN expression SEMICOLON
+
+    ASSIGN          shift and go to state 12
+
+
+state 9
+
+    (7) statement -> empty .
+
+    RBRACE          reduce using rule 7 (statement -> empty .)
+    ID              reduce using rule 7 (statement -> empty .)
+
+
+state 10
+
+    (3) do_while_loop -> DO LBRACE statements RBRACE . WHILE LPAREN expression RPAREN SEMICOLON
+
+    WHILE           shift and go to state 13
+
+
+state 11
+
+    (5) statements -> statements statement .
+
+    RBRACE          reduce using rule 5 (statements -> statements statement .)
+    ID              reduce using rule 5 (statements -> statements statement .)
+
+
+state 12
+
+    (6) statement -> ID ASSIGN . expression SEMICOLON
+    (8) expression -> . term
+    (9) expression -> . expression PLUS term
+    (10) expression -> . expression MINUS term
+    (11) term -> . factor
+    (12) term -> . term TIMES factor
+    (13) term -> . term DIVIDE factor
+    (14) factor -> . ID
+    (15) factor -> . NUMBER
+    (16) factor -> . LPAREN expression RPAREN
+
+    ID              shift and go to state 14
+    NUMBER          shift and go to state 18
+    LPAREN          shift and go to state 19
+
+    expression                     shift and go to state 15
+    term                           shift and go to state 16
+    factor                         shift and go to state 17
+
+state 13
+
+    (3) do_while_loop -> DO LBRACE statements RBRACE WHILE . LPAREN expression RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 20
+
+
+state 14
+
+    (14) factor -> ID .
+
+    TIMES           reduce using rule 14 (factor -> ID .)
+    DIVIDE          reduce using rule 14 (factor -> ID .)
+    SEMICOLON       reduce using rule 14 (factor -> ID .)
+    PLUS            reduce using rule 14 (factor -> ID .)
+    MINUS           reduce using rule 14 (factor -> ID .)
+    RPAREN          reduce using rule 14 (factor -> ID .)
+
+
+state 15
+
+    (6) statement -> ID ASSIGN expression . SEMICOLON
+    (9) expression -> expression . PLUS term
+    (10) expression -> expression . MINUS term
+
+    SEMICOLON       shift and go to state 21
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+
+
+state 16
+
+    (8) expression -> term .
+    (12) term -> term . TIMES factor
+    (13) term -> term . DIVIDE factor
+
+    SEMICOLON       reduce using rule 8 (expression -> term .)
+    PLUS            reduce using rule 8 (expression -> term .)
+    MINUS           reduce using rule 8 (expression -> term .)
+    RPAREN          reduce using rule 8 (expression -> term .)
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+
+
+state 17
+
+    (11) term -> factor .
+
+    TIMES           reduce using rule 11 (term -> factor .)
+    DIVIDE          reduce using rule 11 (term -> factor .)
+    SEMICOLON       reduce using rule 11 (term -> factor .)
+    PLUS            reduce using rule 11 (term -> factor .)
+    MINUS           reduce using rule 11 (term -> factor .)
+    RPAREN          reduce using rule 11 (term -> factor .)
+
+
+state 18
+
+    (15) factor -> NUMBER .
+
+    TIMES           reduce using rule 15 (factor -> NUMBER .)
+    DIVIDE          reduce using rule 15 (factor -> NUMBER .)
+    SEMICOLON       reduce using rule 15 (factor -> NUMBER .)
+    PLUS            reduce using rule 15 (factor -> NUMBER .)
+    MINUS           reduce using rule 15 (factor -> NUMBER .)
+    RPAREN          reduce using rule 15 (factor -> NUMBER .)
+
+
+state 19
+
+    (16) factor -> LPAREN . expression RPAREN
+    (8) expression -> . term
+    (9) expression -> . expression PLUS term
+    (10) expression -> . expression MINUS term
+    (11) term -> . factor
+    (12) term -> . term TIMES factor
+    (13) term -> . term DIVIDE factor
+    (14) factor -> . ID
+    (15) factor -> . NUMBER
+    (16) factor -> . LPAREN expression RPAREN
+
+    ID              shift and go to state 14
+    NUMBER          shift and go to state 18
+    LPAREN          shift and go to state 19
+
+    expression                     shift and go to state 26
+    term                           shift and go to state 16
+    factor                         shift and go to state 17
+
+state 20
+
+    (3) do_while_loop -> DO LBRACE statements RBRACE WHILE LPAREN . expression RPAREN SEMICOLON
+    (8) expression -> . term
+    (9) expression -> . expression PLUS term
+    (10) expression -> . expression MINUS term
+    (11) term -> . factor
+    (12) term -> . term TIMES factor
+    (13) term -> . term DIVIDE factor
+    (14) factor -> . ID
+    (15) factor -> . NUMBER
+    (16) factor -> . LPAREN expression RPAREN
+
+    ID              shift and go to state 14
+    NUMBER          shift and go to state 18
+    LPAREN          shift and go to state 19
+
+    expression                     shift and go to state 27
+    term                           shift and go to state 16
+    factor                         shift and go to state 17
+
+state 21
+
+    (6) statement -> ID ASSIGN expression SEMICOLON .
+
+    RBRACE          reduce using rule 6 (statement -> ID ASSIGN expression SEMICOLON .)
+    ID              reduce using rule 6 (statement -> ID ASSIGN expression SEMICOLON .)
+
+
+state 22
+
+    (9) expression -> expression PLUS . term
+    (11) term -> . factor
+    (12) term -> . term TIMES factor
+    (13) term -> . term DIVIDE factor
+    (14) factor -> . ID
+    (15) factor -> . NUMBER
+    (16) factor -> . LPAREN expression RPAREN
+
+    ID              shift and go to state 14
+    NUMBER          shift and go to state 18
+    LPAREN          shift and go to state 19
+
+    term                           shift and go to state 28
+    factor                         shift and go to state 17
+
+state 23
+
+    (10) expression -> expression MINUS . term
+    (11) term -> . factor
+    (12) term -> . term TIMES factor
+    (13) term -> . term DIVIDE factor
+    (14) factor -> . ID
+    (15) factor -> . NUMBER
+    (16) factor -> . LPAREN expression RPAREN
+
+    ID              shift and go to state 14
+    NUMBER          shift and go to state 18
+    LPAREN          shift and go to state 19
+
+    term                           shift and go to state 29
+    factor                         shift and go to state 17
+
+state 24
+
+    (12) term -> term TIMES . factor
+    (14) factor -> . ID
+    (15) factor -> . NUMBER
+    (16) factor -> . LPAREN expression RPAREN
+
+    ID              shift and go to state 14
+    NUMBER          shift and go to state 18
+    LPAREN          shift and go to state 19
+
+    factor                         shift and go to state 30
+
+state 25
+
+    (13) term -> term DIVIDE . factor
+    (14) factor -> . ID
+    (15) factor -> . NUMBER
+    (16) factor -> . LPAREN expression RPAREN
+
+    ID              shift and go to state 14
+    NUMBER          shift and go to state 18
+    LPAREN          shift and go to state 19
+
+    factor                         shift and go to state 31
+
+state 26
+
+    (16) factor -> LPAREN expression . RPAREN
+    (9) expression -> expression . PLUS term
+    (10) expression -> expression . MINUS term
+
+    RPAREN          shift and go to state 32
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+
+
+state 27
+
+    (3) do_while_loop -> DO LBRACE statements RBRACE WHILE LPAREN expression . RPAREN SEMICOLON
+    (9) expression -> expression . PLUS term
+    (10) expression -> expression . MINUS term
+
+    RPAREN          shift and go to state 33
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+
+
+state 28
+
+    (9) expression -> expression PLUS term .
+    (12) term -> term . TIMES factor
+    (13) term -> term . DIVIDE factor
+
+    SEMICOLON       reduce using rule 9 (expression -> expression PLUS term .)
+    PLUS            reduce using rule 9 (expression -> expression PLUS term .)
+    MINUS           reduce using rule 9 (expression -> expression PLUS term .)
+    RPAREN          reduce using rule 9 (expression -> expression PLUS term .)
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+
+
+state 29
+
+    (10) expression -> expression MINUS term .
+    (12) term -> term . TIMES factor
+    (13) term -> term . DIVIDE factor
+
+    SEMICOLON       reduce using rule 10 (expression -> expression MINUS term .)
+    PLUS            reduce using rule 10 (expression -> expression MINUS term .)
+    MINUS           reduce using rule 10 (expression -> expression MINUS term .)
+    RPAREN          reduce using rule 10 (expression -> expression MINUS term .)
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+
+
+state 30
+
+    (12) term -> term TIMES factor .
+
+    TIMES           reduce using rule 12 (term -> term TIMES factor .)
+    DIVIDE          reduce using rule 12 (term -> term TIMES factor .)
+    SEMICOLON       reduce using rule 12 (term -> term TIMES factor .)
+    PLUS            reduce using rule 12 (term -> term TIMES factor .)
+    MINUS           reduce using rule 12 (term -> term TIMES factor .)
+    RPAREN          reduce using rule 12 (term -> term TIMES factor .)
+
+
+state 31
+
+    (13) term -> term DIVIDE factor .
+
+    TIMES           reduce using rule 13 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 13 (term -> term DIVIDE factor .)
+    SEMICOLON       reduce using rule 13 (term -> term DIVIDE factor .)
+    PLUS            reduce using rule 13 (term -> term DIVIDE factor .)
+    MINUS           reduce using rule 13 (term -> term DIVIDE factor .)
+    RPAREN          reduce using rule 13 (term -> term DIVIDE factor .)
+
+
+state 32
+
+    (16) factor -> LPAREN expression RPAREN .
+
+    TIMES           reduce using rule 16 (factor -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 16 (factor -> LPAREN expression RPAREN .)
+    SEMICOLON       reduce using rule 16 (factor -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 16 (factor -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 16 (factor -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 16 (factor -> LPAREN expression RPAREN .)
+
+
+state 33
+
+    (3) do_while_loop -> DO LBRACE statements RBRACE WHILE LPAREN expression RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 34
+
+
+state 34
+
+    (3) do_while_loop -> DO LBRACE statements RBRACE WHILE LPAREN expression RPAREN SEMICOLON .
+
+    $end            reduce using rule 3 (do_while_loop -> DO LBRACE statements RBRACE WHILE LPAREN expression RPAREN SEMICOLON .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ID in state 5 resolved as shift
+WARNING: shift/reduce conflict for RBRACE in state 6 resolved as shift
+WARNING: shift/reduce conflict for ID in state 6 resolved as shift
