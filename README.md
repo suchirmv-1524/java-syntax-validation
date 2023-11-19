@@ -1,4 +1,3 @@
-#Java Syntax Validator
 
 Validating language constructs in Java using PLY tools in Python
 
