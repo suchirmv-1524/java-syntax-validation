@@ -288,7 +288,7 @@ def parse_input():
     input_string = '\n'.join(input_lines)
     parser.parse(input_string)
 
-# Example usage
+#Parsing
 parse_input()
 
 '''
